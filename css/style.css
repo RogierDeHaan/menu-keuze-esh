@@ -1,0 +1,328 @@
+/******************************************
+/* CSS
+/*******************************************/
+
+/* Box Model Hack */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 62.5%;
+  --font-size--xsmall: 1rem; /* 10px */
+  --font-size--small: 1.6rem; /* 16px */
+  --font-size--default: 1.8rem; /* 18px */
+  --font-size--medium: 2rem; /* 20px */
+  --font-size--large: 2.4rem; /* 24px */
+  --font-size--xlarge: 3.2rem; /* 32px */
+  --color-red: rgb(183, 12, 48);
+  --color-red--opacity: rgba(183, 12, 48, 0.3);
+}
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+}
+.container {
+  /* width: 725px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.language {
+  /* width: 725px; */
+  /* display: flex;
+  align-self: flex-start; */
+  margin-bottom: 0;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.language a {
+  margin: 1rem 0 0.5rem 2rem;
+}
+
+img {
+  width: 3.5rem;
+}
+
+.logo-round {
+  border-radius: 9%;
+}
+
+.opacity-change {
+  opacity: 0.4;
+}
+
+.selection {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.desserts {
+  padding: 0 1rem 0 1rem;
+}
+
+.underline {
+  text-decoration: underline;
+  margin: 0;
+  padding-left: 0.125rem;
+}
+
+p {
+  padding-left: 2.25rem;
+}
+
+#voornaam,
+#achternaam,
+#naam-training,
+#zaal-training {
+  width: 28rem;
+}
+
+#dieet-wensen {
+  width: 29rem;
+  height: 10rem;
+}
+
+form {
+  padding: 0 1rem 0 1rem;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+input[type="checkbox"] {
+  flex: none;
+}
+
+span {
+  padding-left: 0.75rem;
+}
+
+textarea {
+  margin-top: 0;
+}
+
+button {
+  padding: 0.25rem 1.25rem 0.25rem 1.25rem;
+}
+
+fieldset {
+  border: none;
+  margin: 0rem 0 1rem 0;
+}
+
+.voorgerecht-fieldset {
+  margin-top: 2rem;
+}
+
+.last-fieldset {
+  margin-bottom: 0;
+}
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
+
+legend {
+  font-size: var(--font-size--medium);
+  text-decoration: underline;
+}
+.font-weight700 {
+  font-weight: 700;
+}
+
+.font-size-large {
+  font-size: var(--font-size--large);
+}
+
+.span-gerecht {
+  font-size: var(--font-size--default);
+}
+
+.desserts {
+  font-size: var(--font-size--default);
+}
+
+body {
+  margin: 0 auto;
+  background: rgb(27, 27, 27);
+  color: rgb(255, 255, 255);
+}
+
+html {
+  font-family: "Open Sans", sans-serif;
+}
+
+.checkbox {
+  accent-color: var(--color-red);
+}
+
+button {
+  background: rgb(255, 255, 255);
+  color: rgb(27, 27, 27);
+  border: none;
+  border-radius: 5px;
+  margin-left: 1.4rem;
+  cursor: pointer;
+}
+
+button:active {
+  background: rgb(225, 225, 225);
+  transform: scale(0.95);
+}
+
+.container {
+  font-size: var(--font-size--small);
+}
+
+span {
+  font-size: var(--font-size--default);
+}
+
+.placeholder {
+  padding: 0.25rem 0.25rem 0.25rem 1rem;
+  border-radius: 5px;
+}
+
+select {
+  padding-left: 1rem;
+  border-radius: 5px;
+  color: rgb(27, 27, 27);
+  outline: 0;
+}
+
+::placeholder {
+  color: rgb(27, 27, 27);
+  opacity: 0.9;
+}
+
+label,
+.dieet-wens {
+  margin: 1rem 0 0.5rem 0;
+}
+
+label#given-name {
+  margin-top: 0;
+}
+
+.dieet-wens {
+  margin-top: 0;
+}
+
+#spinner {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 10rem;
+  padding: 10px;
+  top: -1000;
+  margin-top: -5rem; /* Negative half of height. */
+  margin-left: -5rem; /* Negative half of width. */
+}
+
+#spinner:not([hidden]) {
+  top: 35%;
+  left: 50%;
+  border: 6px solid var(--color-red);
+  border-top: 6px solid rgba(27, 27, 27, 0);
+  border-radius: 100%;
+  will-change: transform;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#alert-box-positief {
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 300px;
+  height: 250px;
+  padding: 10px;
+  top: -1000px;
+  margin-top: -80px; /* Negative half of height. */
+  margin-left: -150px; /* Negative half of width. */
+}
+
+#alert-box-negatief {
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 300px;
+  height: 250px;
+  padding: 10px;
+  top: -1000px;
+  margin-top: -80px; /* Negative half of height. */
+  margin-left: -150px; /* Negative half of width. */
+  overflow: auto;
+}
+
+#alert-box-negatief h3 {
+  font-size: var(--font-size--large);
+}
+
+#alert-box-positief h3 {
+  font-size: var(--font-size--xlarge);
+}
+
+#alert-box-positief:not([hidden]),
+#alert-box-negatief:not([hidden]) {
+  top: 35%;
+  left: 50%;
+  font-size: var(--font-size--xlarge);
+  background: rgb(27, 27, 27);
+  color: rgb(255, 255, 255);
+  border: 4px solid var(--color-red);
+  border-radius: 5px;
+  text-align: center;
+}
+
+#alert-box-positief button,
+#alert-box-negatief button {
+  background: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.close-modal,
+.close-modal-n {
+  align-self: flex-end;
+  background: rgb(0, 0, 0);
+  padding: 0.75rem 1.25rem;
+  width: 100%;
+  font-size: var(--font-size--large);
+  border: 3px solid var(--color-red);
+  border-radius: 5px;
+}
+
+@media only screen and (min-width: 725px) {
+  body {
+    width: 725px;
+  }
+}

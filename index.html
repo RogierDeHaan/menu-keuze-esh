@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet" />
+
+    <title>Menu keuzes Ernst Sillem Hoeve</title>
+
+    <!-- ---------------------------------External CSS link ------------------------------------>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!--------------------------------------- Main content ------------------------------------->
+    <div class="language">
+      <div>
+        <a id="nl" href="#"
+          ><img src="img/netherlands-ge61d16713_640.png" class="img-nl"
+        /></a>
+        <a id="en" href="#"
+          ><img src="img/united-kingdom-gde7b90fee_640.png" class="img-en"
+        /></a>
+      </div>
+      <img class="logo-round" src="img/esh-logo3.jpg" />
+    </div>
+    
+    <div class="container">
+      
+      <form id="form" name="menu-keuzes">
+
+        <fieldset class="info-fieldset">
+          <label class="font-weight700 font-size-large " for="voornaam" id="given-name"></label>
+          <input
+            class="placeholder"
+            type="text"
+            id="voornaam"
+            name="voornaam"
+            required
+            placeholder="" />
+
+          <label class="font-weight700 font-size-large " for="achternaam" id="sur-name"></label>
+          <input
+            class="placeholder"
+            type="text"
+            id="achternaam"
+            name="achternaam"
+            required
+            placeholder="" />
+
+          <label class="font-weight700 font-size-large " for="naam-training" id="name-training"></label>
+          <input
+            class="placeholder"
+            type="text"
+            id="naam-training"
+            name="naam-training"
+            required
+            placeholder="" />
+
+          <label class="font-weight700 font-size-large " for="zaal-training" id="conference-room"></label>
+            <select name="zaal-training" id="zaal-training">
+              <option value="select"></option>
+              <option value="koetshuis">Koetshuis</option>
+              <option value="wagenzaal">Wagenzaal</option>
+              <option value="forum">Forum</option>
+              <option value="ruiterkamer">Ruiterkamer</option>
+              <option value="koetsierskamer">Koetsierskamer</option>
+              <option value="rododendron">Rododendron</option>
+              <option value="patio">Patio</option>
+              <option value="magnolia">Magnolia</option>
+              <option value="zadelkamer">Zadelkamer</option>
+              <option value="prins-hendrik1">Prins Hendrik 1</option>
+              <option value="prins-hendrik2">Prins Hendrik 2</option>
+              <option value="prins-hendrik3">Prins Hendrik 3</option>
+              <option value="serre">Serre</option>
+              <option value="vierspan">Vierspan</option>
+              <option value="tweespan">Tweespan</option>
+              <option value="stalmeester">Stalmeester</option>
+              <option value="dissel">Dissel</option>
+              <option value="larix">Larix</option>
+            </select>
+        </fieldset>
+          
+        <fieldset class="voorgerecht-fieldset">
+          <legend class="font-weight700 font-size-large" id="starters"></legend>
+
+          <div class="selection">
+            <label for="voorgerecht1">
+              <input
+                class="checkbox checkbox-voor"
+                type="checkbox"
+                id="voorgerecht1"
+                value="voorgerecht1"
+                name="voorgerecht1" />
+              <span class="span-gerecht voorgerecht1"
+                ></span
+              ></label>
+          </div>
+
+          <div class="selection">
+            <label for="voorgerecht2">
+              <input
+                class="checkbox checkbox-voor"
+                type="checkbox"
+                id="voorgerecht2"
+                value="voorgerecht2"
+                name="voorgerecht2" />
+              <span class="span-gerecht voorgerecht2"
+                ></span
+              ></label
+            >
+          </div>
+
+          <div class="selection">
+            <label for="voorgerecht3">
+              <input
+                class="checkbox checkbox-voor"
+                type="checkbox"
+                id="voorgerecht3"
+                value="voorgerecht3"
+                name="voorgerecht3" />
+              <span class="span-gerecht voorgerecht3"
+                ></span
+              ></label
+            >
+          </div>
+
+          <div class="selection">
+            <label for="voorgerecht4">
+              <input
+                class="checkbox checkbox-voor"
+                type="checkbox"
+                id="voorgerecht4"
+                value="voorgerecht4"
+                name="voorgerecht4" />
+              <span class="span-gerecht voorgerecht4"
+                ></span
+              ></label
+            >
+          </div>
+
+          <div class="selection">
+            <label for="voorgerecht5">
+              <input
+                class="checkbox checkbox-voor"
+                type="checkbox"
+                id="voorgerecht5"
+                value="voorgerecht5"
+                name="voorgerecht5" />
+              <span class="span-gerecht voorgerecht5"
+                >
+              </span></label
+            >
+          </div>
+
+          <div class="selection">
+            <label for="voorgerecht6">
+              <input
+                class="checkbox checkbox-voor"
+                type="checkbox"
+                id="voorgerecht6"
+                value="voorgerecht6"
+                name="voorgerecht6" />
+              <span class="span-gerecht voorgerecht6"
+                ></span
+              ></label
+            >
+          </div>
+
+          <div class="selection">
+            <label for="geen-voorgerecht">
+              <input
+                class="checkbox checkbox-voor"
+                type="checkbox"
+                id="geen-voorgerecht"
+                value="geen-voorgerecht"
+                name="geen-voorgerecht" />
+              <span class="span-gerecht voorgerecht7"></span>
+            </label>
+          </div>
+        </fieldset>
+        
+        <fieldset class="hoofdgerecht-fieldset">
+          <legend class="font-weight700 font-size-large" id="main-courses"></legend>
+
+          <div class="selection">
+            <label for="hoofdgerecht1">
+              <input
+                class="checkbox"
+                type="checkbox"
+                id="hoofdgerecht1"
+                value="hoofdgerecht1"
+                name="hoofdgerecht1" />
+              <span class="span-gerecht hoofdgerecht1"
+                ></span
+              ></label
+            >
+          </div>
+
+          <div class="selection">
+            <label for="hoofdgerecht2">
+              <input
+                class="checkbox"
+                type="checkbox"
+                id="hoofdgerecht2"
+                value="hoofdgerecht2"
+                name="hoofdgerecht2" />
+              <span class="span-gerecht hoofdgerecht2"
+                ></span
+              ></label
+            >
+          </div>
+
+          <div class="selection">
+            <label for="hoofdgerecht3">
+              <input
+                class="checkbox"
+                type="checkbox"
+                id="hoofdgerecht3"
+                value="hoofdgerecht3"
+                name="hoofdgerecht3" />
+              <span class="span-gerecht hoofdgerecht3"
+                ></span
+              ></label
+            >
+          </div>
+
+          <div class="selection">
+            <label for="hoofdgerecht4">
+              <input
+                class="checkbox"
+                type="checkbox"
+                id="hoofdgerecht4"
+                value="hoofdgerecht4"
+                name="hoofdgerecht4" />
+              <span class="span-gerecht hoofdgerecht4"
+                ></span
+              ></label
+            >
+          </div>
+
+          <div class="selection">
+            <label for="hoofdgerecht5">
+              <input
+                class="checkbox"
+                type="checkbox"
+                id="hoofdgerecht5"
+                value="hoofdgerecht5"
+                name="hoofdgerecht5" />
+              <span class="span-gerecht hoofdgerecht5"
+                ></span
+              ></label
+            >
+          </div>
+
+          <div class="selection">
+            <label for="hoofdgerecht6">
+              <input
+                class="checkbox"
+                type="checkbox"
+                id="hoofdgerecht6"
+                value="hoofdgerecht6"
+                name="hoofdgerecht6" />
+              <span class="span-gerecht hoofdgerecht6"
+                ></span
+              ></label
+            >
+          </div>
+
+          <div class="selection">
+            <label for="geen-hoofdgerecht">
+              <input
+                class="checkbox"
+                type="checkbox"
+                id="geen-hoofdgerecht"
+                value="geen-hoofdgerecht"
+                name="geen-hoofdgerecht" />
+              <span class="span-gerecht hoofdgerecht7"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="selection desserts">
+          <span class="font-weight700 font-size-large underline desserts-span"></span>
+          <p class="desserts-p"></p>
+        </div>
+
+        <fieldset class="last-fieldset">
+          <legend class="font-weight700 font-size-large dieet"></legend>
+
+          <div class="selection"> 
+            <label class="dieet-wens" for="dieet-wensen"></label>
+              <textarea
+                class="placeholder"
+                type="text"
+                id="dieet-wensen"
+                name="dieet-wensen"
+                required
+                placeholder=""></textarea>
+            </label>
+          </div>
+        </fieldset>
+
+        <button id="submit" type="submit"></button>
+
+      </form>
+    </div>
+    
+    <div hidden id="spinner"></div>
+    <div hidden id="alert-box-positief">
+      <h3 class="alert-box-positief-h3"></h3>
+      <button class="close-modal"></button>
+    </div>
+    <div hidden id="alert-box-negatief">      
+      <h3 class="alert-box-negatief-h3"></h3>
+      <button class="close-modal-n"></button>
+    </div>
+    
+
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
