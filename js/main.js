@@ -291,6 +291,7 @@ closeLocation.addEventListener("click", () => {
 
 console.log(latitude);
 console.log(longitude);
+
 function getLocation() {
   // // get gps position from user
   const successCallback = (position) => {
@@ -319,11 +320,32 @@ function getLocation() {
 
   const errorCallback = (error) => {
     console.log(error);
-    alert("errorCallback");
+    if (error.code === error.PERMISSION_DENIED) {
+      alert("User denied access to location");
+    } else if (error.code === error.POSITION_UNAVAILABLE) {
+      alert("Could not retrieve user's location");
+    } else if (error.code === error.TIMEOUT) {
+      alert("Request timed out");
+    } else {
+      alert("Unknown error occurred");
+    }
+    // Set a default location in case location cannot be retrieved
+    const defaultLocation = {
+      coords: {
+        latitude: 52.1646,
+        longitude: 5.2417,
+      },
+    };
+    successCallback(defaultLocation);
   };
 
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  const options = {
+    timeout: 5000, // Set a timeout of 5 seconds
+  };
+
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
 }
+
 
 closeLocationNegative.addEventListener("click", () => {
   locationPopupNegative.setAttribute("hidden", "");
