@@ -11,7 +11,7 @@
       rel="stylesheet" />
 
     <title>Menu keuzes Ernst Sillem Hoeve</title>
-
+ 
     <!-- ---------------------------------External CSS link ------------------------------------>
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/style.css" />
@@ -20,8 +20,24 @@
   <body>
     <!--------------------------------------- Main content ------------------------------------->
     <div class="language">
-      <a id="nl" href="#"><img src="img/netherlands-ge61d16713_640.png" class="svg-nl"></a>
-      <a id="en" href="#"><img src="img/united-kingdom-gde7b90fee_640.png" class="svg-en"></a>
+      <div>
+        <a id="nl" href="#"
+          ><img src="img/netherlands-ge61d16713_640.png" class="img-nl"
+        /></a>
+        <a id="en" href="#"
+          ><img src="img/united-kingdom-gde7b90fee_640.png" class="img-en"
+        /></a>
+      </div>
+      <img class="logo-round" src="img/esh-logo3.jpg" />
+    </div>
+
+    <div id="location-popup">
+      <h3 id="location-h3"></h3>
+      <button class="close-location"></button>
+    </div>
+    <div hidden id="location-popup-negatief">
+      <h3 id="location-h3-negatief"></h3>
+      <button class="close-location-negatief"></button>
     </div>
     
     <div class="container">
@@ -65,7 +81,8 @@
               <option value="ruiterkamer">Ruiterkamer</option>
               <option value="koetsierskamer">Koetsierskamer</option>
               <option value="rododendron">Rododendron</option>
-              <option value="patio">Magnolia</option>
+              <option value="patio">Patio</option>
+              <option value="magnolia">Magnolia</option>
               <option value="zadelkamer">Zadelkamer</option>
               <option value="prins-hendrik1">Prins Hendrik 1</option>
               <option value="prins-hendrik2">Prins Hendrik 2</option>
@@ -95,6 +112,8 @@
               ></label>
           </div>
 
+         
+
           <div class="selection">
             <label for="voorgerecht3">
               <input
@@ -109,6 +128,8 @@
             >
           </div>
 
+         
+
           <div class="selection">
             <label for="voorgerecht5">
               <input
@@ -122,6 +143,8 @@
               </span></label
             >
           </div>
+
+         
 
           <div class="selection">
             <label for="geen-voorgerecht">
@@ -142,7 +165,7 @@
           <div class="selection">
             <label for="hoofdgerecht1">
               <input
-                class="checkbox checkbox-hoofd"
+                class="checkbox"
                 type="checkbox"
                 id="hoofdgerecht1"
                 value="hoofdgerecht1"
@@ -153,10 +176,12 @@
             >
           </div>
 
+         
+
           <div class="selection">
             <label for="hoofdgerecht3">
               <input
-                class="checkbox checkbox-hoofd"
+                class="checkbox"
                 type="checkbox"
                 id="hoofdgerecht3"
                 value="hoofdgerecht3"
@@ -167,10 +192,12 @@
             >
           </div>
 
+        
+
           <div class="selection">
             <label for="hoofdgerecht5">
               <input
-                class="checkbox checkbox-hoofd"
+                class="checkbox"
                 type="checkbox"
                 id="hoofdgerecht5"
                 value="hoofdgerecht5"
@@ -181,10 +208,12 @@
             >
           </div>
 
+         
+
           <div class="selection">
             <label for="geen-hoofdgerecht">
               <input
-                class="checkbox checkbox-hoofd"
+                class="checkbox"
                 type="checkbox"
                 id="geen-hoofdgerecht"
                 value="geen-hoofdgerecht"

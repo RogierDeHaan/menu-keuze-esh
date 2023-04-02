@@ -4,13 +4,6 @@ const alertBoxNegative = document.querySelector("#alert-box-negatief");
 const closeModal = document.querySelector(".close-modal");
 const closeModalNegatief = document.querySelector(".close-modal-n");
 const form = document.forms["menu-keuzes"];
-const submitButton = document.querySelector("#submit");
-const svgNl = document.querySelector(".svg-nl");
-const svgEn = document.querySelector(".svg-en");
-const scriptURL =
-  "https://script.google.com/macros/s/AKfycby3I-k3yImJ8WaX-LAlWoQ09AG_65Ekzu6NGJ0vxdv_3jpuixT76lJY1m23ULEsv9fZjw/exec";
-const languageData =
-  "https://rogierdehaan.github.io/esh-menu-api/menu-keuze.json";
 
 const checkVoor2 = document.querySelector("#voorgerecht2");
 
@@ -25,6 +18,18 @@ const checkHoofd4 = document.querySelector("#hoofdgerecht4");
 
 const checkHoofd6 = document.querySelector("#hoofdgerecht6");
 const checkHoofd7 = document.querySelector("#geen-hoofdgerecht");
+const locationPopup = document.querySelector("#location-popup");
+const locationH3 = document.querySelector("#location-h3");
+const locationH3Negative = document.querySelector("#location-h3-negatief");
+const closeLocation = document.querySelector(".close-location");
+const closeLocationNegative = document.querySelector(
+  ".close-location-negatief"
+);
+const locationPopupNegative = document.querySelector(
+  "#location-popup-negatief"
+);
+let latitude = undefined;
+let longitude = undefined;
 
 checkVoor2.addEventListener("click", CheckVoor2);
 
@@ -116,6 +121,25 @@ function CheckHoofd7() {
   }
 }
 
+const submitButton = document.querySelector("#submit");
+const imgNl = document.querySelector(".img-nl");
+const imgEn = document.querySelector(".img-en");
+const scriptURL =
+  "https://script.google.com/macros/s/AKfycby3I-k3yImJ8WaX-LAlWoQ09AG_65Ekzu6NGJ0vxdv_3jpuixT76lJY1m23ULEsv9fZjw/exec";
+const languageData =
+  "https://rogierdehaan.github.io/esh-menu-api/menu-keuze.json";
+
+// Implementatie-ID
+// AKfycbxV2VokB2bYbZdTBqsCSrK4y7VfF_dUt8L6jEZyyzrIE9krL3p3-OH4sb-GLi72hcG6
+
+//google sheets menu data
+const sheetId = "1GjsqxfhbANrd6D8pF9w_tj2lMQKkq6P9XrQEvJghlbY";
+const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?`;
+const sheetName = "gerechten";
+const query = encodeURIComponent("Select *");
+const url = `${base}&sheet=${sheetName}&tq=${query}`;
+const data = [];
+
 // define response reload anchors
 const nl = document.querySelector("#nl");
 const en = document.querySelector("#en");
@@ -149,27 +173,37 @@ const dieet = document.querySelector(".dieet");
 let placeHolderDieetwensen = document.getElementById("dieet-wensen");
 const alertBoxPositiefH3 = document.querySelector(".alert-box-positief-h3");
 const alertBoxNegatiefH3 = document.querySelector(".alert-box-negatief-h3");
+// alert(
+//   "Om het formulier te kunnen invullen moet uw locatie bij de ESH zijn daarom word er naar uw locatie gevraagd"
+// );
 
 //submit the form to google drive
 form.addEventListener("submit", (e) => {
+  console.log("form add eventlistener");
   spinner.removeAttribute("hidden");
   submitButton.disabled = true;
   e.preventDefault();
   let requestBody = new FormData(form);
-  fetch(scriptURL, { method: "POST", body: requestBody })
-    .then(() => {
-      alertBoxPositive.removeAttribute("hidden");
+  // let atESH = false;
+  if (atESH === true) {
+    fetch(scriptURL, { method: "POST", body: requestBody })
+      .then(() => {
+        alertBoxPositive.removeAttribute("hidden");
 
-      spinner.setAttribute("hidden", "");
-      form.reset();
-      submitButton.disabled = false;
-    })
-    .catch(() => {
-      alertBoxNegative.removeAttribute("hidden");
+        spinner.setAttribute("hidden", "");
+        form.reset();
+        submitButton.disabled = false;
+      })
+      .catch(() => {
+        alertBoxNegative.removeAttribute("hidden");
 
-      spinner.setAttribute("hidden", "");
-      submitButton.disabled = false;
-    });
+        spinner.setAttribute("hidden", "");
+        submitButton.disabled = false;
+      });
+  } else {
+    locationPopupNegative.removeAttribute("hidden");
+    spinner.setAttribute("hidden", "");
+  }
 });
 
 //close the different modals
@@ -181,100 +215,184 @@ closeModalNegatief.addEventListener("click", () => {
   alertBoxNegative.setAttribute("hidden", "");
 });
 
-//change opacity of the flag png's
-svgNl.addEventListener("click", () => {
-  svgNl.classList.remove("opacity-change");
-  svgEn.classList.add("opacity-change");
+closeLocation.addEventListener("click", () => {
+  locationPopup.setAttribute("hidden", "");
+  getLocation();
 });
-svgEn.addEventListener("click", () => {
-  svgNl.classList.add("opacity-change");
-  svgEn.classList.remove("opacity-change");
-});
-svgNl.click(); // set starting position of flag opacity to highlight dutch flag
 
-// get data from api and use it in website
+console.log(latitude);
+console.log(longitude);
+function getLocation() {
+  // // get gps position from user
+  const successCallback = (position) => {
+    console.log(position);
+    console.log(`Current location ${position.coords.latitude} latitude`);
+    latitude = position.coords.latitude;
+    console.log(latitude);
+    console.log(`Current location ${position.coords.longitude} longitude`);
+    longitude = position.coords.longitude;
+    console.log(longitude);
+    if (
+      ((position.coords.latitude > 52.167 ||
+        position.coords.latitude < 52.161) &&
+        position.coords.longitude > 5.243) ||
+      position.coords.longitude < 5.221
+    ) {
+      console.log("not close enough");
+      alert("You are not at ESH");
+      atESH = false;
+    } else {
+      console.log("You are at ESH");
+      alert("at ESH");
+      atESH = true;
+    }
+  };
+
+  const errorCallback = (error) => {
+    console.log(error);
+    alert("errorCallback");
+  };
+
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+}
+
+closeLocationNegative.addEventListener("click", () => {
+  locationPopupNegative.setAttribute("hidden", "");
+});
+
 function getData() {
+  //get data from json file at github
   fetch(languageData)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
-      const setLanguage = data;
+      const response = data;
+      //get data from google sheets
+      fetch(url)
+        .then((res) => res.text())
+        .then((rep) => {
+          const jsData = JSON.parse(rep.substring(47).slice(0, -2));
+          let gerechten = [];
+          jsData.table.rows.forEach((element) => {
+            gerechten.push(element);
+          });
+          // console.log(gerechten);
 
-      nl.addEventListener("click", () => {
-        firstName.textContent = setLanguage.nl.givenName;
-        placeHolderFirstName.placeholder = setLanguage.nl.givenName;
-        surName.textContent = setLanguage.nl.surName;
-        placeHolderSurName.placeholder = setLanguage.nl.surName;
-        trainingName.textContent = setLanguage.nl.nameTraining;
-        placeHolderTrainingName.placeholder = setLanguage.nl.nameTraining;
-        conferenceRoom.textContent = setLanguage.nl.conferenceRoom;
-        placeHolderConferenceRoom[0].textContent =
-          setLanguage.nl.conferenceRoom;
-        starters.textContent = setLanguage.nl.starters;
+          //dutch dishes
+          let gerechtenNL = gerechten[2];
+          gerechtenNL = gerechtenNL.c.slice(0);
 
-        voorgerecht2.textContent = setLanguage.nl.voorgerecht2;
+          //english dishes
+          let gerechtenEN = gerechten[4];
+          gerechtenEN = gerechtenEN.c.slice(0);
 
-        voorgerecht4.textContent = setLanguage.nl.voorgerecht4;
+          //dutch menu
+          const voorgerechtenNL = [];
+          const hoofdgerechtenNL = [];
+          for (i = 0; i <= 6; i++) {
+            voorgerechtenNL.push(gerechtenNL[i].v);
+          }
+          for (i = 7; i <= 13; i++) {
+            hoofdgerechtenNL.push(gerechtenNL[i].v);
+          }
 
-        voorgerecht6.textContent = setLanguage.nl.voorgerecht6;
-        voorgerecht7.textContent = setLanguage.nl.voorgerecht7;
-        mainCourses.textContent = setLanguage.nl.mainCourses;
+          // english menu
+          const voorgerechtenEN = [];
+          const hoofdgerechtenEN = [];
+          for (i = 0; i <= 6; i++) {
+            voorgerechtenEN.push(gerechtenEN[i].v);
+          }
+          for (i = 7; i <= 13; i++) {
+            hoofdgerechtenEN.push(gerechtenEN[i].v);
+          }
 
-        hoofdgerecht2.textContent = setLanguage.nl.hoofdgerecht2;
+          nl.addEventListener("click", () => {
+            imgNl.classList.remove("opacity-change");
+            imgEn.classList.add("opacity-change");
+            firstName.textContent = response.nl.givenName;
+            placeHolderFirstName.placeholder = response.nl.givenName;
+            surName.textContent = response.nl.surName;
+            placeHolderSurName.placeholder = response.nl.surName;
+            trainingName.textContent = response.nl.nameTraining;
+            placeHolderTrainingName.placeholder = response.nl.nameTraining;
+            conferenceRoom.textContent = response.nl.conferenceRoom;
+            placeHolderConferenceRoom[0].textContent =
+              response.nl.conferenceRoom;
+            starters.textContent = response.nl.starters;
 
-        hoofdgerecht4.textContent = setLanguage.nl.hoofdgerecht4;
+            voorgerecht2.textContent = voorgerechtenNL[1];
 
-        hoofdgerecht6.textContent = setLanguage.nl.hoofdgerecht6;
-        hoofdgerecht7.textContent = setLanguage.nl.hoofdgerecht7;
-        dessertsSpan.textContent = setLanguage.nl.dessertsSpan;
-        dessertsP.textContent = setLanguage.nl.dessertsP;
-        dieet.textContent = setLanguage.nl.dieet;
-        placeHolderDieetwensen.placeholder = setLanguage.nl.dieetWensen;
-        submitButton.textContent = setLanguage.nl.submit;
-        alertBoxPositiefH3.textContent = setLanguage.nl.alertBoxPositiefH3;
-        alertBoxNegatiefH3.textContent = setLanguage.nl.alertBoxNegatiefH3;
-        closeModal.textContent = setLanguage.nl.closeModal;
-        closeModalNegatief.textContent = setLanguage.nl.closeModalNegatief;
-      });
+            voorgerecht4.textContent = voorgerechtenNL[3];
 
-      en.addEventListener("click", () => {
-        firstName.textContent = setLanguage.en.givenName;
-        placeHolderFirstName.placeholder = setLanguage.en.givenName;
-        surName.textContent = setLanguage.en.surName;
-        placeHolderSurName.placeholder = setLanguage.en.surName;
-        trainingName.textContent = setLanguage.en.nameTraining;
-        placeHolderTrainingName.placeholder = setLanguage.en.nameTraining;
-        conferenceRoom.textContent = setLanguage.en.conferenceRoom;
-        placeHolderConferenceRoom[0].textContent =
-          setLanguage.en.conferenceRoom;
-        starters.textContent = setLanguage.en.starters;
+            voorgerecht6.textContent = voorgerechtenNL[5];
+            voorgerecht7.textContent = voorgerechtenNL[6];
+            mainCourses.textContent = response.nl.mainCourses;
 
-        voorgerecht2.textContent = setLanguage.en.voorgerecht2;
+            hoofdgerecht2.textContent = hoofdgerechtenNL[1];
 
-        voorgerecht4.textContent = setLanguage.en.voorgerecht4;
+            hoofdgerecht4.textContent = hoofdgerechtenNL[3];
 
-        voorgerecht6.textContent = setLanguage.en.voorgerecht6;
-        voorgerecht7.textContent = setLanguage.en.voorgerecht7;
-        mainCourses.textContent = setLanguage.en.mainCourses;
+            hoofdgerecht6.textContent = hoofdgerechtenNL[5];
+            hoofdgerecht7.textContent = hoofdgerechtenNL[6];
+            dessertsSpan.textContent = response.nl.dessertsSpan;
+            dessertsP.textContent = response.nl.dessertsP;
+            dieet.textContent = response.nl.dieet;
+            placeHolderDieetwensen.placeholder = response.nl.dieetWensen;
+            submitButton.textContent = response.nl.submit;
+            alertBoxPositiefH3.textContent = response.nl.alertBoxPositiefH3;
+            alertBoxNegatiefH3.textContent = response.nl.alertBoxNegatiefH3;
+            closeModal.textContent = response.nl.closeModal;
+            closeModalNegatief.textContent = response.nl.closeModalNegatief;
+            locationH3.textContent = response.nl.locationH3;
+            locationH3Negative.textContent = response.nl.locationH3Negatief;
+            closeLocation.textContent = response.nl.closeLocation;
+            closeLocationNegative.textContent = response.nl.closeLocation;
+          });
+          en.addEventListener("click", () => {
+            imgNl.classList.add("opacity-change");
+            imgEn.classList.remove("opacity-change");
+            firstName.textContent = response.en.givenName;
+            placeHolderFirstName.placeholder = response.en.givenName;
+            surName.textContent = response.en.surName;
+            placeHolderSurName.placeholder = response.en.surName;
+            trainingName.textContent = response.en.nameTraining;
+            placeHolderTrainingName.placeholder = response.en.nameTraining;
+            conferenceRoom.textContent = response.en.conferenceRoom;
+            placeHolderConferenceRoom[0].textContent =
+              response.en.conferenceRoom;
+            starters.textContent = response.en.starters;
 
-        hoofdgerecht2.textContent = setLanguage.en.hoofdgerecht2;
+            voorgerecht2.textContent = voorgerechtenEN[1];
 
-        hoofdgerecht4.textContent = setLanguage.en.hoofdgerecht4;
+            voorgerecht4.textContent = voorgerechtenEN[3];
 
-        hoofdgerecht6.textContent = setLanguage.en.hoofdgerecht6;
-        hoofdgerecht7.textContent = setLanguage.en.hoofdgerecht7;
-        dessertsSpan.textContent = setLanguage.en.dessertsSpan;
-        dessertsP.textContent = setLanguage.en.dessertsP;
-        dieet.textContent = setLanguage.en.dieet;
-        placeHolderDieetwensen.placeholder = setLanguage.en.dieetWensen;
-        submitButton.textContent = setLanguage.en.submit;
-        alertBoxPositiefH3.textContent = setLanguage.en.alertBoxPositiefH3;
-        alertBoxNegatiefH3.textContent = setLanguage.en.alertBoxNegatiefH3;
-        closeModal.textContent = setLanguage.en.closeModal;
-        closeModalNegatief.textContent = setLanguage.en.closeModalNegatief;
-      });
-      nl.click();
+            voorgerecht6.textContent = voorgerechtenEN[5];
+            voorgerecht7.textContent = voorgerechtenEN[6];
+            mainCourses.textContent = response.en.mainCourses;
+
+            hoofdgerecht2.textContent = hoofdgerechtenEN[1];
+
+            hoofdgerecht4.textContent = hoofdgerechtenEN[3];
+
+            hoofdgerecht6.textContent = hoofdgerechtenEN[5];
+            hoofdgerecht7.textContent = hoofdgerechtenEN[6];
+            dessertsSpan.textContent = response.en.dessertsSpan;
+            dessertsP.textContent = response.en.dessertsP;
+            dieet.textContent = response.en.dieet;
+            placeHolderDieetwensen.placeholder = response.en.dieetWensen;
+            submitButton.textContent = response.en.submit;
+            alertBoxPositiefH3.textContent = response.en.alertBoxPositiefH3;
+            alertBoxNegatiefH3.textContent = response.en.alertBoxNegatiefH3;
+            closeModal.textContent = response.en.closeModal;
+            closeModalNegatief.textContent = response.en.closeModalNegatief;
+            locationH3.textContent = response.en.locationH3;
+            locationH3Negative.textContent = response.en.locationH3Negatief;
+            closeLocation.textContent = response.en.closeLocation;
+            closeLocationNegative.textContent = response.nl.closeLocation;
+          });
+          nl.click();
+        });
     });
 }
 getData();

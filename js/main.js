@@ -18,6 +18,18 @@ const checkHoofd4 = document.querySelector("#hoofdgerecht4");
 const checkHoofd5 = document.querySelector("#hoofdgerecht5");
 const checkHoofd6 = document.querySelector("#hoofdgerecht6");
 const checkHoofd7 = document.querySelector("#geen-hoofdgerecht");
+const locationPopup = document.querySelector("#location-popup");
+const locationH3 = document.querySelector("#location-h3");
+const locationH3Negative = document.querySelector("#location-h3-negatief");
+const closeLocation = document.querySelector(".close-location");
+const closeLocationNegative = document.querySelector(
+  ".close-location-negatief"
+);
+const locationPopupNegative = document.querySelector(
+  "#location-popup-negatief"
+);
+let latitude = undefined;
+let longitude = undefined;
 
 checkVoor1.addEventListener("click", CheckVoor1);
 checkVoor2.addEventListener("click", CheckVoor2);
@@ -185,6 +197,9 @@ const scriptURL =
 const languageData =
   "https://rogierdehaan.github.io/esh-menu-api/menu-keuze.json";
 
+// Implementatie-ID
+// AKfycbxV2VokB2bYbZdTBqsCSrK4y7VfF_dUt8L6jEZyyzrIE9krL3p3-OH4sb-GLi72hcG6
+
 //google sheets menu data
 const sheetId = "1GjsqxfhbANrd6D8pF9w_tj2lMQKkq6P9XrQEvJghlbY";
 const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?`;
@@ -226,27 +241,38 @@ const dieet = document.querySelector(".dieet");
 let placeHolderDieetwensen = document.getElementById("dieet-wensen");
 const alertBoxPositiefH3 = document.querySelector(".alert-box-positief-h3");
 const alertBoxNegatiefH3 = document.querySelector(".alert-box-negatief-h3");
+// alert(
+//   "Om het formulier te kunnen invullen moet uw locatie bij de ESH zijn daarom word er naar uw locatie gevraagd"
+// );
 
 //submit the form to google drive
 form.addEventListener("submit", (e) => {
+  console.log("submit form to google")  
+  alert(atESH)
   spinner.removeAttribute("hidden");
   submitButton.disabled = true;
   e.preventDefault();
   let requestBody = new FormData(form);
-  fetch(scriptURL, { method: "POST", body: requestBody })
-    .then(() => {
-      alertBoxPositive.removeAttribute("hidden");
+  // let atESH = false;
+  if (atESH === true) {
+    fetch(scriptURL, { method: "POST", body: requestBody })
+      .then(() => {
+        alertBoxPositive.removeAttribute("hidden");
 
-      spinner.setAttribute("hidden", "");
-      form.reset();
-      submitButton.disabled = false;
-    })
-    .catch(() => {
-      alertBoxNegative.removeAttribute("hidden");
+        spinner.setAttribute("hidden", "");
+        form.reset();
+        submitButton.disabled = false;
+      })
+      .catch(() => {
+        alertBoxNegative.removeAttribute("hidden");
 
-      spinner.setAttribute("hidden", "");
-      submitButton.disabled = false;
-    });
+        spinner.setAttribute("hidden", "");
+        submitButton.disabled = false;
+      });
+  } else {
+    locationPopupNegative.removeAttribute("hidden");
+    spinner.setAttribute("hidden", "");
+  }
 });
 
 //close the different modals
@@ -256,6 +282,51 @@ closeModal.addEventListener("click", () => {
 
 closeModalNegatief.addEventListener("click", () => {
   alertBoxNegative.setAttribute("hidden", "");
+});
+
+closeLocation.addEventListener("click", () => {
+  locationPopup.setAttribute("hidden", "");
+  getLocation();
+});
+
+console.log(latitude);
+console.log(longitude);
+function getLocation() {
+  // // get gps position from user
+  const successCallback = (position) => {
+    console.log(position);
+    console.log(`Current location ${position.coords.latitude} latitude`);
+    latitude = position.coords.latitude;
+    console.log(latitude);
+    console.log(`Current location ${position.coords.longitude} longitude`);
+    longitude = position.coords.longitude;
+    console.log(longitude);
+    if (
+      ((position.coords.latitude > 52.167 ||
+        position.coords.latitude < 52.161) &&
+        position.coords.longitude > 5.243) ||
+      position.coords.longitude < 5.221
+    ) {
+      console.log("not close enough");
+      alert("You are not at ESH");
+      atESH = false;
+    } else {
+      console.log("You are at ESH");
+      alert("at ESH");
+      atESH = true;
+    }
+  };
+
+  const errorCallback = (error) => {
+    console.log(error);
+    alert("errorCallback");
+  };
+
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+}
+
+closeLocationNegative.addEventListener("click", () => {
+  locationPopupNegative.setAttribute("hidden", "");
 });
 
 function getData() {
@@ -275,7 +346,7 @@ function getData() {
           jsData.table.rows.forEach((element) => {
             gerechten.push(element);
           });
-          //  console.log(gerechten);
+          // console.log(gerechten);
 
           //dutch dishes
           let gerechtenNL = gerechten[2];
@@ -342,6 +413,10 @@ function getData() {
             alertBoxNegatiefH3.textContent = response.nl.alertBoxNegatiefH3;
             closeModal.textContent = response.nl.closeModal;
             closeModalNegatief.textContent = response.nl.closeModalNegatief;
+            locationH3.textContent = response.nl.locationH3;
+            locationH3Negative.textContent = response.nl.locationH3Negatief;
+            closeLocation.textContent = response.nl.closeLocation;
+            closeLocationNegative.textContent = response.nl.closeLocation;
           });
           en.addEventListener("click", () => {
             imgNl.classList.add("opacity-change");
@@ -380,6 +455,10 @@ function getData() {
             alertBoxNegatiefH3.textContent = response.en.alertBoxNegatiefH3;
             closeModal.textContent = response.en.closeModal;
             closeModalNegatief.textContent = response.en.closeModalNegatief;
+            locationH3.textContent = response.en.locationH3;
+            locationH3Negative.textContent = response.en.locationH3Negatief;
+            closeLocation.textContent = response.en.closeLocation;
+            closeLocationNegative.textContent = response.nl.closeLocation;
           });
           nl.click();
         });

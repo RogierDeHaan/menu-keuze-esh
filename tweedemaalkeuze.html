@@ -11,7 +11,7 @@
       rel="stylesheet" />
 
     <title>Menu keuzes Ernst Sillem Hoeve</title>
-
+ 
     <!-- ---------------------------------External CSS link ------------------------------------>
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/style.css" />
@@ -20,8 +20,24 @@
   <body>
     <!--------------------------------------- Main content ------------------------------------->
     <div class="language">
-      <a id="nl" href="#"><img src="img/netherlands-ge61d16713_640.png" class="svg-nl"></a>
-      <a id="en" href="#"><img src="img/united-kingdom-gde7b90fee_640.png" class="svg-en"></a>
+      <div>
+        <a id="nl" href="#"
+          ><img src="img/netherlands-ge61d16713_640.png" class="img-nl"
+        /></a>
+        <a id="en" href="#"
+          ><img src="img/united-kingdom-gde7b90fee_640.png" class="img-en"
+        /></a>
+      </div>
+      <img class="logo-round" src="img/esh-logo3.jpg" />
+    </div>
+
+    <div id="location-popup">
+      <h3 id="location-h3"></h3>
+      <button class="close-location"></button>
+    </div>
+    <div hidden id="location-popup-negatief">
+      <h3 id="location-h3-negatief"></h3>
+      <button class="close-location-negatief"></button>
     </div>
     
     <div class="container">
@@ -65,7 +81,8 @@
               <option value="ruiterkamer">Ruiterkamer</option>
               <option value="koetsierskamer">Koetsierskamer</option>
               <option value="rododendron">Rododendron</option>
-              <option value="patio">Magnolia</option>
+              <option value="patio">Patio</option>
+              <option value="magnolia">Magnolia</option>
               <option value="zadelkamer">Zadelkamer</option>
               <option value="prins-hendrik1">Prins Hendrik 1</option>
               <option value="prins-hendrik2">Prins Hendrik 2</option>
@@ -82,6 +99,8 @@
         <fieldset class="voorgerecht-fieldset">
           <legend class="font-weight700 font-size-large" id="starters"></legend>
 
+         
+
           <div class="selection">
             <label for="voorgerecht2">
               <input
@@ -96,6 +115,8 @@
             >
           </div>
 
+        
+
           <div class="selection">
             <label for="voorgerecht4">
               <input
@@ -109,6 +130,8 @@
               ></label
             >
           </div>
+
+       
 
           <div class="selection">
             <label for="voorgerecht6">
@@ -140,10 +163,12 @@
         <fieldset class="hoofdgerecht-fieldset">
           <legend class="font-weight700 font-size-large" id="main-courses"></legend>
 
+         
+
           <div class="selection">
             <label for="hoofdgerecht2">
               <input
-                class="checkbox checkbox-hoofd"
+                class="checkbox"
                 type="checkbox"
                 id="hoofdgerecht2"
                 value="hoofdgerecht2"
@@ -154,10 +179,12 @@
             >
           </div>
 
+         
+
           <div class="selection">
             <label for="hoofdgerecht4">
               <input
-                class="checkbox checkbox-hoofd"
+                class="checkbox"
                 type="checkbox"
                 id="hoofdgerecht4"
                 value="hoofdgerecht4"
@@ -168,10 +195,11 @@
             >
           </div>
 
+
           <div class="selection">
             <label for="hoofdgerecht6">
               <input
-                class="checkbox checkbox-hoofd"
+                class="checkbox"
                 type="checkbox"
                 id="hoofdgerecht6"
                 value="hoofdgerecht6"
@@ -185,7 +213,7 @@
           <div class="selection">
             <label for="geen-hoofdgerecht">
               <input
-                class="checkbox checkbox-hoofd"
+                class="checkbox"
                 type="checkbox"
                 id="geen-hoofdgerecht"
                 value="geen-hoofdgerecht"
