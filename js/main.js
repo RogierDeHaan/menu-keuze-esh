@@ -248,7 +248,7 @@ const alertBoxNegatiefH3 = document.querySelector(".alert-box-negatief-h3");
 //submit the form to google drive
 form.addEventListener("submit", (e) => {
   console.log("submit form to google")  
-  alert(atESH)
+  alert(`At esh? ${atESH}`)
   spinner.removeAttribute("hidden");
   submitButton.disabled = true;
   e.preventDefault();
